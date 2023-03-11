@@ -1,5 +1,9 @@
 import React from 'react';
+import { Paper, List, Container } from '@material-ui/core';
+
 import Todo from './Todo';
+import AddTodo from './AddTodo';
+
 import './App.css';
 
 class App extends React.Component {
@@ -15,14 +19,24 @@ class App extends React.Component {
   }
 
   render() {
-    //(2) 자바스크립트 제공하는 map 함수를 이용해 배열을 반복해 <Todo... /> 컴포넌트 생성
-    var todoItems = this.state.items.map((item, idx) => (
-      <Todo item={item} key={item.id} />
-    ));
+    var todoItems = this.state.items.length > 0 && (
+      <Paper style={{ magin: 16 }}>
+        <List>
+          {this.state.items.map((item, idx) => (
+            <Todo item={item} key={item.id} />
+          ))}
+        </List>
+      </Paper>
+    );
+
     return (
-      //(3) 생성된 컴포넌트 리턴
       <div className="App">
-        {todoItems}
+        <Container maxWidth="md">
+          <AddTodo />
+          <div className="TodoList">
+            {todoItems}
+          </div>
+        </Container>
       </div>
     );
   }
