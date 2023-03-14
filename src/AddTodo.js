@@ -7,6 +7,25 @@ class AddTodo extends React.Component {
     this.state = {
       item: { title: '' } //사용자의 입력을 저잘할 오브젝트
     };
+    this.add = props.add;
+  }
+
+  onInputChange = (e) => {
+    const thisItem = this.state.item;
+    thisItem.title = e.target.value;
+    this.setState({ item: thisItem });
+    console.log(thisItem);
+  }
+
+  onButtonClick = () => {
+    this.add(this.state.item);
+    this.setState({ item: { title: "" } });
+  }
+
+  enterKeyEventHandler = (e) => {
+    if(e.key === 'Enter') {
+      this.onButtonClick();
+    }
   }
 
   render() {
@@ -17,10 +36,18 @@ class AddTodo extends React.Component {
             <TextField
               placeholder="Add Todo here"
               fullWidth
+              onChange={this.onInputChange}
+              value={this.state.item.title}
+              onKeyPress={this.enterKeyEventHandler}
             />
           </Grid>
           <Grid xs={1} md={1} item>
-            <Button fullWidth color="secondary" variant="outline">
+            <Button
+              fullWidth
+              color="secondary"
+              variant="outline"
+              onClick={this.onButtonClick}
+            >
               +
             </Button>
           </Grid>
