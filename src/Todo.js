@@ -46,11 +46,19 @@ class Todo extends React.Component {
     });
   }
 
+  checkboxEventHandler = (e) => {
+    const thisItem = this.state.item;
+    thisItem.done = !thisItem.done;
+    this.setState({
+      item: thisItem
+    });
+  }
+
   render() {
     const item = this.state.item;
     return(
       <ListItem>
-        <Checkbox checked={item.done} disableRipple />
+        <Checkbox checked={item.done} onChange={this.checkboxEventHandler} />
         <ListItemText>
           <InputBase
             InputProps={{
